@@ -10,6 +10,7 @@ interface MovieListProps {
   addOpenListBtn?: boolean;
   isLoading: boolean;
   error: string;
+  onSelectMovie: (id: string) => void;
 }
 
 export default function MovieList({
@@ -17,6 +18,7 @@ export default function MovieList({
   addOpenListBtn,
   isLoading,
   error,
+  onSelectMovie,
 }: MovieListProps) {
   const [openList, setOpenList] = useState(true);
 
@@ -28,12 +30,14 @@ export default function MovieList({
         moviesData.map((item) => (
           <MovieItem
             key={item.imdbID}
+            movieId={item.imdbID}
             posterUrl={item.Poster}
             title={item.Title}
             releaseYear={item.Year}
             userRating={item.userRating}
             imdbRating={item.imdbRating}
             runtime={item.runtime}
+            onSelectMovie={onSelectMovie}
           />
         ))}
 

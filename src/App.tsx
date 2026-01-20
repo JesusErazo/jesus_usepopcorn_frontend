@@ -10,6 +10,7 @@ import NumResults from "./components/NumResults";
 import MovieList from "./features/movies/components/MovieList";
 import MovieStats from "./features/movies/components/MovieStats";
 import { useMovies } from "./features/movies/hooks/useMovies";
+import MovieDetails from "./features/movies/components/MovieDetails";
 
 const tempWatchedData = [
   {
@@ -38,6 +39,15 @@ function App() {
   const [watchedMovies, setWatchedMovies] = useState(tempWatchedData);
   const [query, setQuery] = useState<string>("shrek");
   const { movies, isLoading, error } = useMovies(query);
+  const [selectedId, setSelectedId] = useState<string>("");
+
+  function handleSelectMovie(id: string) {
+    setSelectedId(id === selectedId ? "" : id);
+  }
+
+  function handleCloseMovie() {
+    setSelectedId("");
+  }
 
   return (
     <div className={styles.app}>
@@ -57,11 +67,19 @@ function App() {
           addOpenListBtn={true}
           isLoading={isLoading}
           error={error}
+          onSelectMovie={handleSelectMovie}
         />
 
-        <div className={styles.boxStats}>
-          <MovieStats moviesData={watchedMovies} />
-        </div>
+        {selectedId ? (
+          <MovieDetails
+            selectedId={selectedId}
+            onCloseMovie={handleCloseMovie}
+          />
+        ) : (
+          <div className={styles.boxStats}>
+            <MovieStats moviesData={watchedMovies} />
+          </div>
+        )}
       </Main>
     </div>
   );

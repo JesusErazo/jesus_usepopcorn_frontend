@@ -6,6 +6,10 @@
   padding: 14px 22px;
 }
 
+.item:hover {
+  background-color: var(--color-background-100);
+}
+
 .poster {
   height: 65px;
   width: auto;

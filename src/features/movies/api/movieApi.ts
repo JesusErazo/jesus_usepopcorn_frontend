@@ -1,4 +1,5 @@
 import { type MovieData } from "../types/MovieData";
+import type { MovieDataDetails } from "../types/MovieDataDetails";
 
 const KEY = import.meta.env.VITE_OMDB_API_KEY;
 const BASE_URL = "http://www.omdbapi.com";
@@ -28,4 +29,25 @@ export async function searchMovies(
   }
 
   return data.Search || [];
+}
+
+export async function getMovieDetails(
+  id: string,
+  signal?: AbortSignal,
+): Promise<MovieDataDetails | null> {
+  if (!id) return null;
+
+  const res = await fetch(`${BASE_URL}/?apiKey=${KEY}&i=${id}`, { signal });
+
+  if (!res.ok) {
+    throw new Error("Something went wrong with fetching movie details");
+  }
+
+  const data: MovieDataDetails = await res.json();
+
+  if (data.Response === "False") {
+    throw new Error(data.Error || "Movie not found.");
+  }
+
+  return data || null;
 }
