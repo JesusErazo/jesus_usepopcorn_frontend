@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MovieList from "./MovieList";
 import type { MovieData } from "../types/MovieData";
+import styles from "./MovieStats.module.css";
 
 interface MovieStatsProps {
   moviesData: MovieData[];
@@ -27,15 +28,18 @@ export default function MovieStats({ moviesData }: MovieStatsProps) {
   }
 
   return (
-    <div className="stats-content">
-      <button className="btn-stats" onClick={() => setOpenStats(!openStats)}>
+    <div className={styles.container}>
+      <button
+        className={styles.btnToggle}
+        onClick={() => setOpenStats(!openStats)}
+      >
         {openStats ? <>&minus;</> : <>&#43;</>}
       </button>
       {openStats && (
         <>
-          <div className="movie-stats">
-            <p className="stats-title">movies you watched</p>
-            <div className="stats-detail">
+          <div className={styles.summary}>
+            <p className={styles.title}>movies you watched</p>
+            <div className={styles.details}>
               <span>#️⃣ {moviesAmount} movies</span>
               <span>⭐ {avgUserRating}</span>
               <span>🌟 {avgImdbRating}</span>

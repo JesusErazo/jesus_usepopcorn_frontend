@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./App.module.css";
 
 import NavBar from "./components/NavBar";
 import Main from "./components/Main";
@@ -39,7 +40,7 @@ function App() {
   const { movies, isLoading, error } = useMovies(query);
 
   return (
-    <div className="App">
+    <div className={styles.app}>
       <NavBar>
         <Logo>🍿usePopcorn</Logo>
         <Search
@@ -58,7 +59,7 @@ function App() {
           error={error}
         />
 
-        <div className="box-stats">
+        <div className={styles.boxStats}>
           <MovieStats moviesData={watchedMovies} />
         </div>
       </Main>

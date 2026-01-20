@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex: 1;
+  border-radius: 0.7rem;
+  background-color: var(--color-background-500);
+}
+
+.btnToggle {
+  background-color: var(--color-background-900);
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: var(--color-text);
+  font-size: 15px;
+  font-weight: bold;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 0;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: var(--color-background-100);
+  padding: 20px;
+  border-radius: 0.7rem;
+  box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+}
+
+.title {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,3 +1,5 @@
+import styles from "./MovieItemStats.module.css";
+
 interface MovieItemStatsProps {
   userRating: number;
   imdbRating: number;
@@ -10,7 +12,7 @@ export default function MovieItemStats({
   runtime,
 }: MovieItemStatsProps) {
   return (
-    <div className="movie-stats-details">
+    <div className={styles.stats}>
       <span>⭐ {userRating}</span>
       <span>🌟 {imdbRating}</span>
       <span>⌛ {runtime} min</span>

@@ -1,3 +1,5 @@
+import styles from "./Search.module.css";
+
 interface SearchProps {
   placeholder: string;
   htmlName: string;
@@ -13,7 +15,7 @@ export default function Search({
 }: SearchProps) {
   return (
     <input
-      className="search"
+      className={styles.search}
       type="text"
       value={query}
       placeholder={placeholder}

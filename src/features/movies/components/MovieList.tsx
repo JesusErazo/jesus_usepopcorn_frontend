@@ -3,6 +3,7 @@ import { useState } from "react";
 import { type MovieData } from "../types/MovieData";
 import Loader from "../../../components/Loader";
 import ErrorMessage from "../../../components/ErrorMessage";
+import styles from "./MovieList.module.css";
 
 interface MovieListProps {
   moviesData: MovieData[];
@@ -20,7 +21,7 @@ export default function MovieList({
   const [openList, setOpenList] = useState(true);
 
   return (
-    <ul className="movie-list">
+    <ul className={styles.list}>
       {!error &&
         openList &&
         !isLoading &&
@@ -41,7 +42,10 @@ export default function MovieList({
       {error && <ErrorMessage error={error} />}
 
       {addOpenListBtn && (
-        <button className="btn-list" onClick={() => setOpenList(!openList)}>
+        <button
+          className={styles.btnToggle}
+          onClick={() => setOpenList(!openList)}
+        >
           {openList ? <>&minus;</> : <>&#43;</>}
         </button>
       )}

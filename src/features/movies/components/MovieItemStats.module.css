@@ -1,0 +1,8 @@
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats span {
+  flex: 1;
+}

@@ -1,6 +1,8 @@
+import styles from "./ErrorMessage.module.css";
+
 export default function ErrorMessage({ error }: { error: string }) {
   return (
-    <p className="error-msg">
+    <p className={styles.error}>
       <span>⛔</span> {error}
     </p>
   );

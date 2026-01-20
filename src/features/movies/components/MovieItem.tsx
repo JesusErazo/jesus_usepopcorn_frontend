@@ -1,4 +1,5 @@
 import MovieItemStats from "./MovieItemStats";
+import styles from "./MovieItem.module.css";
 
 interface MovieItemProps {
   posterUrl?: string;
@@ -18,10 +19,14 @@ export default function MovieItem({
   runtime,
 }: MovieItemProps) {
   return (
-    <li className="movie-item">
-      <img className="poster" src={posterUrl} alt="poster of the movie" />
-      <div className="movie-item-desc">
-        <span className="movie-title">{title}</span>
+    <li className={styles.item}>
+      <img
+        className={styles.poster}
+        src={posterUrl}
+        alt="poster of the movie"
+      />
+      <div className={styles.details}>
+        <span className={styles.title}>{title}</span>
         {userRating !== undefined &&
         imdbRating !== undefined &&
         runtime !== undefined ? (

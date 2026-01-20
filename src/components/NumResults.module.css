@@ -1,0 +1,9 @@
+.numResults {
+  flex: 1;
+  text-align: end;
+  font-size: 17px;
+}
+
+.numResults span {
+  font-weight: bold;
+}
