@@ -1,9 +1,9 @@
 export interface MovieDataDetails {
   Title: string;
-  Year: string | number;
+  Year: string;
   Poster: string;
-  Runtime: number;
-  imdbRating: number;
+  Runtime: string;
+  imdbRating: string;
   Plot: string;
   Released: string;
   Actors: string;

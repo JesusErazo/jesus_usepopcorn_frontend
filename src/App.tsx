@@ -11,32 +11,10 @@ import MovieList from "./features/movies/components/MovieList";
 import MovieStats from "./features/movies/components/MovieStats";
 import { useMovies } from "./features/movies/hooks/useMovies";
 import MovieDetails from "./features/movies/components/MovieDetails";
-
-const tempWatchedData = [
-  {
-    imdbID: "tt1375666",
-    Title: "Inception",
-    Year: "2010",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-    runtime: 148,
-    imdbRating: 8.8,
-    userRating: 10,
-  },
-  {
-    imdbID: "tt0088763",
-    Title: "Back to the Future",
-    Year: "1985",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-    runtime: 116,
-    imdbRating: 8.5,
-    userRating: 9,
-  },
-];
+import type { MovieData } from "./features/movies/types/MovieData";
 
 function App() {
-  const [watchedMovies, setWatchedMovies] = useState(tempWatchedData);
+  const [watchedMovies, setWatchedMovies] = useState<MovieData[]>([]);
   const [query, setQuery] = useState<string>("shrek");
   const { movies, isLoading, error } = useMovies(query);
   const [selectedId, setSelectedId] = useState<string>("");
@@ -47,6 +25,16 @@ function App() {
 
   function handleCloseMovie() {
     setSelectedId("");
+  }
+
+  function handleAddWatchedMovie(movie: MovieData) {
+    setWatchedMovies((watchedMovies) => [...watchedMovies, movie]);
+  }
+
+  function onDeleteWatchedMovie(movieId: string) {
+    setWatchedMovies((watchedMovies) =>
+      watchedMovies.filter((movie) => movie.imdbID !== movieId),
+    );
   }
 
   return (
@@ -72,8 +60,11 @@ function App() {
 
         {selectedId ? (
           <MovieDetails
+            key={selectedId}
             selectedId={selectedId}
             onCloseMovie={handleCloseMovie}
+            onAddWatchedMovie={handleAddWatchedMovie}
+            onDeleteWatchedMovie={onDeleteWatchedMovie}
           />
         ) : (
           <div className={styles.boxStats}>

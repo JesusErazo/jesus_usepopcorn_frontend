@@ -52,6 +52,7 @@ export default function MovieStats({ moviesData }: MovieStatsProps) {
             addOpenListBtn={false}
             isLoading={false}
             error=""
+            onSelectMovie={() => "NOT IMPLEMENTED YET"}
           />
         </>
       )}
