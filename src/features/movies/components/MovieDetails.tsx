@@ -11,6 +11,7 @@ interface MovieDetailsProps {
   onCloseMovie: () => void;
   onAddWatchedMovie: (movie: MovieData) => void;
   onDeleteWatchedMovie: (movieId: string) => void;
+  watchedMovies: MovieData[];
 }
 
 export default function MovieDetails({
@@ -18,10 +19,14 @@ export default function MovieDetails({
   onCloseMovie,
   onAddWatchedMovie,
   onDeleteWatchedMovie,
+  watchedMovies,
 }: MovieDetailsProps) {
   const { movie, isLoading, error } = useMovieDetails(selectedId);
   const [showContent, setShowContent] = useState(true);
-  const [movieAdded, setMovieAdded] = useState(false);
+  const [userRating, setUserRating] = useState(0);
+  const movieAdded = watchedMovies?.find(
+    (m) => m.imdbID === selectedId && m.userRating,
+  );
 
   function handleAddWatchedMovie() {
     if (!movie) return;
@@ -38,16 +43,15 @@ export default function MovieDetails({
       Poster: movie.Poster,
       imdbRating: Number(movie.imdbRating),
       runtime: Number(movie.Runtime.split(" ")[0]),
+      userRating: userRating,
     };
 
     onAddWatchedMovie(watchedMovie);
-    setMovieAdded(true);
   }
 
   function handleDeleteWatchedMovie() {
     if (!movieAdded) return;
     onDeleteWatchedMovie(selectedId);
-    setMovieAdded(false);
   }
 
   return (
@@ -80,14 +84,22 @@ export default function MovieDetails({
           <section className={styles.summary}>
             <div className={styles.ratingContainer}>
               <div className={styles.rating}>
-                <StarRating maxRating={10} size={26} />
+                <StarRating
+                  maxRating={10}
+                  size={26}
+                  onSetRating={setUserRating}
+                  defaultRating={movieAdded ? movieAdded.userRating : 0}
+                />
               </div>
-              <button
-                className={styles.btnAddToList}
-                onClick={handleAddWatchedMovie}
-              >
-                {movieAdded ? "✓ Added" : "+ Add to list"}
-              </button>
+
+              {(userRating > 0 || movieAdded) && (
+                <button
+                  className={styles.btnAddToList}
+                  onClick={handleAddWatchedMovie}
+                >
+                  {movieAdded ? "✓ Added" : "+ Add to list"}
+                </button>
+              )}
             </div>
             <p>
               <em>{movie.Plot}</em>

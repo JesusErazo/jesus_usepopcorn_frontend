@@ -65,6 +65,7 @@ function App() {
             onCloseMovie={handleCloseMovie}
             onAddWatchedMovie={handleAddWatchedMovie}
             onDeleteWatchedMovie={onDeleteWatchedMovie}
+            watchedMovies={watchedMovies}
           />
         ) : (
           <div className={styles.boxStats}>
