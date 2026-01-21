@@ -10,7 +10,9 @@ interface MovieListProps {
   addOpenListBtn?: boolean;
   isLoading: boolean;
   error: string;
+  includeDeleteBtn?: boolean;
   onSelectMovie: (id: string) => void;
+  onDeleteMovie?: (movieId: string) => void;
 }
 
 export default function MovieList({
@@ -19,6 +21,8 @@ export default function MovieList({
   isLoading,
   error,
   onSelectMovie,
+  onDeleteMovie = () => {},
+  includeDeleteBtn = false,
 }: MovieListProps) {
   const [openList, setOpenList] = useState(true);
 
@@ -38,6 +42,8 @@ export default function MovieList({
             imdbRating={item.imdbRating}
             runtime={item.runtime}
             onSelectMovie={onSelectMovie}
+            includeDeleteBtn={includeDeleteBtn}
+            onDeleteMovie={onDeleteMovie}
           />
         ))}
 

@@ -5,9 +5,13 @@ import styles from "./MovieStats.module.css";
 
 interface MovieStatsProps {
   moviesData: MovieData[];
+  onDeleteMovie?: (movieId: string) => void;
 }
 
-export default function MovieStats({ moviesData }: MovieStatsProps) {
+export default function MovieStats({
+  moviesData,
+  onDeleteMovie = () => {},
+}: MovieStatsProps) {
   const [openStats, setOpenStats] = useState(true);
   const moviesAmount = moviesData?.length ?? 0;
   const avgUserRating = average(moviesData.map((movie) => movie.userRating));
@@ -41,8 +45,8 @@ export default function MovieStats({ moviesData }: MovieStatsProps) {
             <p className={styles.title}>movies you watched</p>
             <div className={styles.details}>
               <span>#️⃣ {moviesAmount} movies</span>
-              <span>⭐ {avgUserRating}</span>
-              <span>🌟 {avgImdbRating}</span>
+              <span>⭐ {avgUserRating?.toFixed(2)}</span>
+              <span>🌟 {avgImdbRating?.toFixed(2)}</span>
               <span>⌛ {avgRuntime} min</span>
             </div>
           </div>
@@ -53,6 +57,8 @@ export default function MovieStats({ moviesData }: MovieStatsProps) {
             isLoading={false}
             error=""
             onSelectMovie={() => "NOT IMPLEMENTED YET"}
+            includeDeleteBtn={true}
+            onDeleteMovie={onDeleteMovie}
           />
         </>
       )}

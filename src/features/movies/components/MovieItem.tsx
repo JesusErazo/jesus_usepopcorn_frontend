@@ -9,7 +9,9 @@ interface MovieItemProps {
   userRating?: number;
   imdbRating?: number;
   runtime?: number;
+  includeDeleteBtn?: boolean;
   onSelectMovie: (id: string) => void;
+  onDeleteMovie?: (movieId: string) => void;
 }
 
 export default function MovieItem({
@@ -20,7 +22,9 @@ export default function MovieItem({
   userRating,
   imdbRating,
   runtime,
+  includeDeleteBtn = false,
   onSelectMovie,
+  onDeleteMovie = () => {},
 }: MovieItemProps) {
   return (
     <li className={styles.item} onClick={() => onSelectMovie(movieId)}>
@@ -43,6 +47,14 @@ export default function MovieItem({
           <p>📆 {releaseYear}</p>
         )}
       </div>
+      {includeDeleteBtn && (
+        <button
+          className={styles.deleteBtn}
+          onClick={() => onDeleteMovie(movieId)}
+        >
+          X
+        </button>
+      )}
     </li>
   );
 }

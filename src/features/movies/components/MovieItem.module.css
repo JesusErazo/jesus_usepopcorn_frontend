@@ -28,3 +28,13 @@
   font-size: 18px;
   margin-bottom: 5px;
 }
+
+.deleteBtn {
+  font-weight: bold;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-red-dark);
+}

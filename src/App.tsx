@@ -31,7 +31,7 @@ function App() {
     setWatchedMovies((watchedMovies) => [...watchedMovies, movie]);
   }
 
-  function onDeleteWatchedMovie(movieId: string) {
+  function handleDeleteWatchedMovie(movieId: string) {
     setWatchedMovies((watchedMovies) =>
       watchedMovies.filter((movie) => movie.imdbID !== movieId),
     );
@@ -64,12 +64,15 @@ function App() {
             selectedId={selectedId}
             onCloseMovie={handleCloseMovie}
             onAddWatchedMovie={handleAddWatchedMovie}
-            onDeleteWatchedMovie={onDeleteWatchedMovie}
+            onDeleteWatchedMovie={handleDeleteWatchedMovie}
             watchedMovies={watchedMovies}
           />
         ) : (
           <div className={styles.boxStats}>
-            <MovieStats moviesData={watchedMovies} />
+            <MovieStats
+              moviesData={watchedMovies}
+              onDeleteMovie={handleDeleteWatchedMovie}
+            />
           </div>
         )}
       </Main>
