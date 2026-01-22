@@ -5,6 +5,7 @@ import Loader from "../../../components/Loader";
 import ErrorMessage from "../../../components/ErrorMessage";
 import StarRating from "../../../components/StarRating";
 import type { MovieData } from "../types/MovieData";
+import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
 
 interface MovieDetailsProps {
   selectedId: string;
@@ -27,6 +28,8 @@ export default function MovieDetails({
   const movieAdded = watchedMovies?.find(
     (m) => m.imdbID === selectedId && m.userRating,
   );
+
+  useDocumentTitle(`Movie | ${movie?.Title}`);
 
   function handleAddWatchedMovie() {
     if (!movie) return;
