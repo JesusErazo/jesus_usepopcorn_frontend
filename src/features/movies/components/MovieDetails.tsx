@@ -6,6 +6,7 @@ import ErrorMessage from "../../../components/ErrorMessage";
 import StarRating from "../../../components/StarRating";
 import type { MovieData } from "../types/MovieData";
 import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
+import { useKeyPressListener } from "../../../hooks/useKeyPressListener";
 
 interface MovieDetailsProps {
   selectedId: string;
@@ -30,6 +31,8 @@ export default function MovieDetails({
   );
 
   useDocumentTitle(`Movie | ${movie?.Title}`);
+
+  useKeyPressListener("Escape", onCloseMovie);
 
   function handleAddWatchedMovie() {
     if (!movie) return;

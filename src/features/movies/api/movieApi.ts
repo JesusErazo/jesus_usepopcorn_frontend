@@ -44,7 +44,6 @@ export async function getMovieDetails(
   }
 
   const data: MovieDataDetails = await res.json();
-  console.log(data);
 
   if (data.Response === "False") {
     throw new Error(data.Error || "Movie not found.");

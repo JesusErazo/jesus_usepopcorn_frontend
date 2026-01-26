@@ -15,7 +15,7 @@ import type { MovieData } from "./features/movies/types/MovieData";
 
 function App() {
   const [watchedMovies, setWatchedMovies] = useState<MovieData[]>([]);
-  const [query, setQuery] = useState<string>("shrek");
+  const [query, setQuery] = useState<string>("");
   const { movies, isLoading, error } = useMovies(query);
   const [selectedId, setSelectedId] = useState<string>("");
 
