@@ -12,12 +12,18 @@ import MovieStats from "./features/movies/components/MovieStats";
 import { useMovies } from "./features/movies/hooks/useMovies";
 import MovieDetails from "./features/movies/components/MovieDetails";
 import type { MovieData } from "./features/movies/types/MovieData";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
-  const [watchedMovies, setWatchedMovies] = useState<MovieData[]>([]);
   const [query, setQuery] = useState<string>("");
   const { movies, isLoading, error } = useMovies(query);
   const [selectedId, setSelectedId] = useState<string>("");
+
+  const [watchedMovies, setWatchedMovies] = useState<MovieData[]>(function () {
+    const storedMovies: string | null = localStorage.getItem("watchedMovies");
+    const movies: MovieData[] = storedMovies ? JSON.parse(storedMovies) : [];
+    return movies;
+  });
 
   function handleSelectMovie(id: string) {
     setSelectedId(id === selectedId ? "" : id);
@@ -36,6 +42,8 @@ function App() {
       watchedMovies.filter((movie) => movie.imdbID !== movieId),
     );
   }
+
+  useLocalStorage("watchedMovies", JSON.stringify(watchedMovies));
 
   return (
     <div className={styles.app}>

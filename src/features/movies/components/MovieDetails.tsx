@@ -30,10 +30,6 @@ export default function MovieDetails({
     (m) => m.imdbID === selectedId && m.userRating,
   );
 
-  useDocumentTitle(`Movie | ${movie?.Title}`);
-
-  useKeyPressListener("Escape", onCloseMovie);
-
   function handleAddWatchedMovie() {
     if (!movie) return;
 
@@ -59,6 +55,10 @@ export default function MovieDetails({
     if (!movieAdded) return;
     onDeleteWatchedMovie(selectedId);
   }
+
+  useDocumentTitle(`Movie | ${movie?.Title}`);
+
+  useKeyPressListener("Escape", onCloseMovie);
 
   return (
     <div className={styles.container}>
