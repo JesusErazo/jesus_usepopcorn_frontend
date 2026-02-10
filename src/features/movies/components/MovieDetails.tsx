@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./MovieDetails.module.css";
 import { useMovieDetails } from "../hooks/useMovieDetails";
 import Loader from "../../../components/Loader";
@@ -26,6 +26,8 @@ export default function MovieDetails({
   const { movie, isLoading, error } = useMovieDetails(selectedId);
   const [showContent, setShowContent] = useState(true);
   const [userRating, setUserRating] = useState(0);
+  const countRatingDecisionsRef = useRef(0);
+
   const movieAdded = watchedMovies?.find(
     (m) => m.imdbID === selectedId && m.userRating,
   );
@@ -46,6 +48,7 @@ export default function MovieDetails({
       imdbRating: Number(movie.imdbRating),
       runtime: Number(movie.Runtime.split(" ")[0]),
       userRating: userRating,
+      countRatingDecisions: countRatingDecisionsRef.current,
     };
 
     onAddWatchedMovie(watchedMovie);
@@ -59,6 +62,10 @@ export default function MovieDetails({
   useDocumentTitle(`Movie | ${movie?.Title}`);
 
   useKeyPressListener("Escape", onCloseMovie);
+
+  useEffect(() => {
+    if (userRating) countRatingDecisionsRef.current++;
+  }, [userRating]);
 
   return (
     <div className={styles.container}>

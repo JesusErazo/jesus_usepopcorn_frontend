@@ -6,4 +6,5 @@ export interface MovieData {
   runtime?: number;
   imdbRating?: number;
   userRating?: number;
+  countRatingDecisions?: number;
 }
